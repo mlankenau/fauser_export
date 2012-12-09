@@ -8,11 +8,6 @@ using System.Threading.Tasks;
 
 namespace CommandLine
 {
-    class Offering
-    {
-        
-    }
-
     class ExportOfferings : BaseExporter
     {
         string MAIN_QUERY =
@@ -21,7 +16,6 @@ namespace CommandLine
             "JOIN CU_COMP on CU_COMP.CONO = PA_PAPER.ADDRNO " +
             "WHERE  " +
             "	TXTIDENT='Angebot' " +
-            //"	AND TXTNUMMER = '12-4074-01' " +
             "	AND PA_PAPER.STATUS > 0";
 
 
