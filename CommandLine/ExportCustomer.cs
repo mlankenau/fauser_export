@@ -10,15 +10,15 @@ namespace ConsoleApplication1
 {
     class ExportCustomer : BaseExporter
     {
-        string MAIN_QUERY = 
-            "SELECT CONO, NAME, ADDITION, STREET, BOXNO, POSTCODE, PLACE, PHONE, MODEM, FAX, COTYPNO, [STATUS], CUSTNO, LIEFERB, ZAHLUNGB, VATIDNO, SUPPLIER, CDATE, CHDATE " +
-            "FROM CU_COMP";
+        string MAIN_QUERY =
+            "SELECT CONO as forsa_id, NAME as name, ADDITION as name2, STREET as street, BOXNO, POSTCODE as zip, PLACE as city, PHONE as phone, MODEM as web, FAX as fax, COTYPNO, CUSTNO customer_no, LIEFERB as delivery_conditions, ZAHLUNGB as payment_conditions, VATIDNO vat_id, SUPPLIER, CDATE as created_at, CHDATE as changed_at " +
+            "FROM CU_COMP " +
+            "WHERE STATUS = 0";
 
 
 
         public ExportCustomer(SqlConnection conn, JsonWriter jsonWriter) : base(conn, jsonWriter)
-        {
-                       
+        {                       
         }
 
         public override void Export()
@@ -28,9 +28,7 @@ namespace ConsoleApplication1
                 StartObj();
                 for (int i = 0; i < reader.FieldCount; i++)
                 {
-                    string name = reader.GetName(i);
-                    string value = reader.GetValue(i).ToString() ;                    
-                    Property(name, value);
+                    Property(reader.GetName(i), reader, i);
                 }
                 EndObj();
             });
