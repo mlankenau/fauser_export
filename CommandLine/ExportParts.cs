@@ -1,5 +1,4 @@
-﻿using ConsoleApplication1;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -19,8 +18,8 @@ namespace CommandLine
             "FROM OR_ORDER "+
             "WHERE STATUS <> 2";
 
-        public ExportParts(SqlConnection conn, JsonWriter jsonWriter)
-            : base(conn, jsonWriter)
+        public ExportParts(String connectionString, JsonWriter jsonWriter)
+            : base(connectionString, jsonWriter)
         {                       
         }
         

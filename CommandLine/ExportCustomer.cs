@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApplication1
+namespace CommandLine
 {
     class ExportCustomer : BaseExporter
     {
@@ -17,7 +17,7 @@ namespace ConsoleApplication1
 
 
 
-        public ExportCustomer(SqlConnection conn, JsonWriter jsonWriter) : base(conn, jsonWriter)
+        public ExportCustomer(string connectionString, JsonWriter jsonWriter) : base(connectionString, jsonWriter)
         {                       
         }
 

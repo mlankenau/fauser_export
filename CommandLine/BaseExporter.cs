@@ -6,30 +6,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApplication1
+namespace CommandLine
 {
     abstract class BaseExporter
     {
-        SqlConnection conn; 
-        JsonWriter jsonWriter;
+        //protected SqlConnection conn;
+        //protected SqlConnection conn2; 
+        protected string connectionString;
+        protected JsonWriter jsonWriter;
 
         public delegate void Process(SqlDataReader reader);
 
-        public BaseExporter(SqlConnection conn, JsonWriter jsonWriter)
+        public BaseExporter(string connectionString, JsonWriter jsonWriter)
         {
-            this.conn = conn;
+            this.connectionString = connectionString;
             this.jsonWriter = jsonWriter;
         }
 
 
         protected void Query(string sql, Process process)
         {
-            SqlCommand myCommand = new SqlCommand(sql, conn);
-            using (SqlDataReader myReader = myCommand.ExecuteReader())
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                while (myReader.Read())
+                conn.Open();
+                SqlCommand myCommand = new SqlCommand(sql, conn);
+                using (SqlDataReader myReader = myCommand.ExecuteReader())
                 {
-                    process(myReader);
+                    while (myReader.Read())
+                    {
+                        process(myReader);
+                    }
                 }
             }
         }
@@ -43,6 +49,16 @@ namespace ConsoleApplication1
         {
             jsonWriter.WriteEndObject();
             jsonWriter.WriteWhitespace("\r\n");
+        }
+
+        protected void StartArray()
+        {
+            jsonWriter.WriteStartArray();
+        }
+
+        protected void EndArray()
+        {
+            jsonWriter.WriteEndArray();
         }
 
         protected void Property(string key, string value)
