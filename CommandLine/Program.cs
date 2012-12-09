@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using Newtonsoft.Json;
 using System.IO;
+using CommandLine;
 
 namespace ConsoleApplication1
 {
     class Program
-    {       
+    {               
         static void Main(string[] args)
         {
             String connectionString =
@@ -32,7 +33,9 @@ namespace ConsoleApplication1
                     StringWriter sw = new StringWriter(sb);
                     JsonWriter writer = new JsonTextWriter(sw);
                     writer.Formatting = Formatting.Indented;
-                    ExportCustomer export = new ExportCustomer(myConnection, writer);
+                    BaseExporter export = new ExportCustomer(myConnection, writer);
+                    export.Export();
+                    export = new ExportParts(myConnection, writer);
                     export.Export();
                     writer.Close();
                     sw.Close();

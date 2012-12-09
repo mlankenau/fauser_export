@@ -21,7 +21,7 @@ namespace ConsoleApplication1
                        
         }
 
-        public void Export()
+        public override void Export()
         {
             Query(MAIN_QUERY, delegate(SqlDataReader reader)
             {
