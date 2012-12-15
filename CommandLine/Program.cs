@@ -27,8 +27,6 @@ namespace CommandLine
             {
                 using (FileStream fs = new FileStream("export.json", FileMode.CreateNew, FileAccess.Write))
                 {
-                    //StringBuilder sb = new StringBuilder();
-                    //StringWriter sw = new StringWriter(sb);
                     StreamWriter sw = new StreamWriter(fs);
                     JsonWriter writer = new JsonTextWriter(sw);
                     writer.Formatting = Formatting.Indented;
@@ -63,7 +61,6 @@ namespace CommandLine
 
                     writer.Close();
                     sw.Close();
-                    //Console.WriteLine(sb.ToString());
                 }
             }
             catch (Exception e)
