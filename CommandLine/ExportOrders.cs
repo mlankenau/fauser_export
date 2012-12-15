@@ -8,17 +8,18 @@ using System.Threading.Tasks;
 
 namespace CommandLine
 {
-    class ExportOfferings: ExportPaper
+    class ExportOrders : ExportPaper
     {
-        public ExportOfferings(string conn, JsonWriter jsonWriter)
-            : base(conn, jsonWriter)
+        
+
+        public ExportOrders(string conn, JsonWriter jsonWriter) : base(conn, jsonWriter)
         {                       
         }
 
         public override string GetPaperName()
         {
-            return "Angebot";
+            return "Auftragsbestätigung";
         }
-    
+
     }
 }

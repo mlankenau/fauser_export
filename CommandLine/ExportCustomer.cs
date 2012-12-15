@@ -23,6 +23,7 @@ namespace CommandLine
 
         public override void Export()
         {
+            StartArray();
             Query(MAIN_QUERY, delegate(SqlDataReader reader)
             {
                 StartObj();
@@ -32,6 +33,7 @@ namespace CommandLine
                 }
                 EndObj();
             });
+            EndArray();
         }
     }
 }

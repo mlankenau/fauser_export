@@ -25,21 +25,46 @@ namespace CommandLine
             Console.WriteLine("start exporting");
             try
             {
-                StringBuilder sb = new StringBuilder();
-                StringWriter sw = new StringWriter(sb);
-                JsonWriter writer = new JsonTextWriter(sw);
-                writer.Formatting = Formatting.Indented;
-                BaseExporter export = new ExportCustomer(connectionString, writer);
-                //export.Export();
-                export = new ExportParts(connectionString, writer);
-                //export.Export();
-                export = new ExportOfferings(connectionString, writer);
-                export.Export();
-                    
-                writer.Close();
-                sw.Close();
-                Console.WriteLine(sb.ToString());
+                using (FileStream fs = new FileStream("export.json", FileMode.CreateNew, FileAccess.Write))
+                {
+                    //StringBuilder sb = new StringBuilder();
+                    //StringWriter sw = new StringWriter(sb);
+                    StreamWriter sw = new StreamWriter(fs);
+                    JsonWriter writer = new JsonTextWriter(sw);
+                    writer.Formatting = Formatting.Indented;
 
+                    writer.WriteStartObject();
+
+                    writer.WritePropertyName("customers");
+                    BaseExporter export = new ExportCustomer(connectionString, writer);
+                    export.Export();
+
+
+                    writer.WritePropertyName("parts");
+                    export = new ExportParts(connectionString, writer);
+                    export.Export();
+
+                    writer.WritePropertyName("offerings");
+                    export = new ExportOfferings(connectionString, writer);
+                    export.Export();
+
+                    writer.WritePropertyName("orders");
+                    export = new ExportOrders(connectionString, writer);
+                    export.Export();
+
+                    writer.WritePropertyName("deliveries");
+                    export = new ExportDeliveries(connectionString, writer);
+                    export.Export();
+                    writer.WritePropertyName("invoices");
+                    export = new ExportInvoices(connectionString, writer);
+                    export.Export();
+
+                    writer.WriteEndObject();
+
+                    writer.Close();
+                    sw.Close();
+                    //Console.WriteLine(sb.ToString());
+                }
             }
             catch (Exception e)
             {

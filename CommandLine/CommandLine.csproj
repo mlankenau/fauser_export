@@ -46,7 +46,11 @@
   <ItemGroup>
     <Compile Include="BaseExporter.cs" />
     <Compile Include="ExportCustomer.cs" />
+    <Compile Include="ExportDeliveries.cs" />
+    <Compile Include="ExportInvoices.cs" />
     <Compile Include="ExportOfferings.cs" />
+    <Compile Include="ExportOrders.cs" />
+    <Compile Include="ExportPaper.cs" />
     <Compile Include="ExportParts.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
