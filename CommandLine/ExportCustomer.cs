@@ -11,7 +11,7 @@ namespace CommandLine
     class ExportCustomer : BaseExporter
     {
         string MAIN_QUERY =
-            "SELECT CONO as forsa_id, NAME as name, ADDITION as name2, STREET as street, BOXNO, POSTCODE as zip, PLACE as city, PHONE as phone, MODEM as web, FAX as fax, COTYPNO, CUSTNO customer_no, LIEFERB as delivery_conditions, ZAHLUNGB as payment_conditions, VATIDNO vat_id, SUPPLIER, CDATE as created_at, CHDATE as changed_at " +
+            "SELECT CONO as forsa_id, NAME as name, ADDITION as name_ext, STREET as address, BOXNO, POSTCODE as zip, PLACE as city, PHONE as phone, MODEM as web, FAX as fax, COTYPNO, CUSTNO customer_no, LIEFERB as delivery_conditions, ZAHLUNGB as payment_conditions, VATIDNO tax_number, SUPPLIER, CDATE as created_at, CHDATE as changed_at " +
             "FROM CU_COMP " +
             "WHERE STATUS = 0";
 

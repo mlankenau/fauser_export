@@ -11,7 +11,7 @@ namespace CommandLine
     abstract class ExportPaper : BaseExporter
     {
         string MAIN_QUERY =
-            "SELECT VORGNO,AUSGNO,TXTNUMMER as name, ANLAGEZEIT as offering_date,PRINTTIM1 as print_date, CU_COMP.NAME as company_name, PA_PAPER.CDATE as created_at, PA_PAPER.CHDATE as updated_at " +
+            "SELECT VORGNO,AUSGNO,TXTNUMMER as visual_id, ANLAGEZEIT as offering_date,PRINTTIM1 as print_date, CU_COMP.NAME as customer, PA_PAPER.CDATE as created_at, PA_PAPER.CHDATE as updated_at " +
             "FROM PA_PAPER " +
             "JOIN CU_COMP on CU_COMP.CONO = PA_PAPER.ADDRNO " +
             "WHERE  " +

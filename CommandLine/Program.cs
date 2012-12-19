@@ -25,7 +25,7 @@ namespace CommandLine
             Console.WriteLine("start exporting");
             try
             {
-                using (FileStream fs = new FileStream("export.json", FileMode.CreateNew, FileAccess.Write))
+                using (FileStream fs = new FileStream("\\\\VBOXSVR\\Shared\\export.json", FileMode.Create, FileAccess.Write))
                 {
                     StreamWriter sw = new StreamWriter(fs);
                     JsonWriter writer = new JsonTextWriter(sw);
