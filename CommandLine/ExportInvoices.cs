@@ -19,5 +19,10 @@ namespace CommandLine
         {
             return "Rechnung";
         }
+
+        public override string GetPrefix()
+        {
+            return "invoice";
+        }
     }
 }

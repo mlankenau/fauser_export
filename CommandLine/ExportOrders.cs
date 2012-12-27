@@ -21,5 +21,11 @@ namespace CommandLine
             return "Auftragsbestätigung";
         }
 
+        public override string GetPrefix()
+        {
+            return "order";
+        }
+
+
     }
 }

@@ -19,5 +19,10 @@ namespace CommandLine
         {
             return "Lieferschein";
         }
+
+        public override string GetPrefix()
+        {
+            return "delivery";
+        }
     }
 }

@@ -19,6 +19,9 @@ namespace CommandLine
         {
             return "Angebot";
         }
-    
+        public override string GetPrefix()
+        {
+            return "offering";
+        }
     }
 }
