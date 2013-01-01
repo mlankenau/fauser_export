@@ -12,7 +12,7 @@ namespace CommandLine
     abstract class ExportPaper : BaseExporter
     {
         string MAIN_QUERY =
-            "SELECT VORGNO,AUSGNO,TXTNUMMER as visual_id, ANLAGEZEIT as PREFIX_date,PRINTTIM1 as print_date, CU_COMP.NAME as customer, PA_PAPER.CDATE as created_at, PA_PAPER.CHDATE as updated_at, ORDERNO as customer_mark " +
+            "SELECT VORGNO,AUSGNO,TXTNUMMER as visual_id, ANLAGEZEIT as PREFIX_date,PRINTTIM1 as print_date, CU_COMP.NAME as customer, PA_PAPER.CDATE as created_at, PA_PAPER.CHDATE as updated_at, ORDERNO as customer_mark, PA_PAPER.ZAHLUNGB as payment_mode " +
             "FROM PA_PAPER " +
             "JOIN CU_COMP on CU_COMP.CONO = PA_PAPER.ADDRNO " +
             "WHERE  " +
@@ -21,10 +21,12 @@ namespace CommandLine
 
 
         string SUB_QUERY =
-            "SELECT POSTEXT as text, EPREIS as part_price, GPREIS as total_price, MENGE as amount, POSTNAME as partname, POSTART as lager_id, POSDAT as delivery_date, CDATE as created_at, CHDATE as updated_at, POSLIEF0 as other_delivered, POSINF " +
-            "FROM PA_POSIT " +
-            "WHERE VORGNO=$1 "+
-            "AND AUSGNO=$2";
+            "SELECT POSTEXT as text, EPREIS as part_price, GPREIS as total_price, PA_POSIT.MENGE as amount, "+
+	        "ISNULL(PA_ARTPOS.FNUM, POSTNAME) as partname,	"+
+	        "POSDAT as delivery_date, PA_POSIT.CDATE as created_at, PA_POSIT.CHDATE as updated_at, POSLIEF0 as other_delivered, POSINF "+
+            "FROM PA_POSIT  "+
+            "LEFT JOIN  PA_ARTPOS ON PA_POSIT.POSTART = PA_ARTPOS.ARTDESC "+
+            "WHERE VORGNO=$1 AND AUSGNO=$2";
 
         public ExportPaper(string conn, JsonWriter jsonWriter) : base(conn, jsonWriter)
         {                       
@@ -44,7 +46,7 @@ namespace CommandLine
             Query(GetMainQuery(), delegate(SqlDataReader reader)
             {                
                 StartObj();
-                int[] columns = new int[] {2, 3, 4, 5, 6, 7, 8};
+                int[] columns = new int[] {2, 3, 4, 5, 6, 7, 8, 9 };
                 foreach (int i in columns)
                 {
                     Property(reader.GetName(i), reader, i);
